@@ -1,0 +1,120 @@
+#%RAML 1.0
+title: Waffle House API
+version: 1.0
+baseUri: https://api.wafflehouse.com
+
+mediaType: application/json
+
+types:
+  Menu:
+    properties:
+      id: number
+      name: string
+      price: number
+
+  Order:
+    properties:
+      id: number
+      items: Menu[]
+
+/orders:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            type: Order[]
+            
+  /{orderId}:
+    uriParameters:
+      orderId:
+        description: The ID of the order
+        type: number
+    get:
+      description: Retrieve information about a specific order
+      responses:
+        200:
+          body:
+            application/json:
+              type: Order
+              example: |
+                {
+                  "id": 123,
+                  "items": [
+                    {
+                      "id": 1,
+                      "name": "Classic Waffle",
+                      "price": 5.99
+                    },
+                    {
+                      "id": 2,
+                      "name": "Bacon and Egg Waffle",
+                      "price": 7.99
+                    }
+                  ]
+                }
+        404:
+          body:
+            application/json:
+              example: |
+                { "message": "Order not found" }
+
+  post:
+    description: Place a new order
+    body:
+      application/json:
+        type: Order
+        example: |
+          {
+            "id": 456,
+            "items": [
+              {
+                "id": 3,
+                "name": "Blueberry Waffle",
+                "price": 6.99
+              },
+              {
+                "id": 4,
+                "name": "Chocolate Chip Waffle",
+                "price": 6.99
+              }
+            ]
+          }
+    responses:
+      201:
+        body:
+          application/json:
+            example: |
+              { "message": "Order placed successfully" }
+
+/menus:
+  get:
+    description: Retrieve the list of available menu items
+    responses:
+      200:
+        body:
+          application/json:
+            type: Menu[]
+            example: |
+              [
+                {
+                  "id": 1,
+                  "name": "Classic Waffle",
+                  "price": 5.99
+                },
+                {
+                  "id": 2,
+                  "name": "Bacon and Egg Waffle",
+                  "price": 7.99
+                },
+                {
+                  "id": 3,
+                  "name": "Blueberry Waffle",
+                  "price": 6.99
+                },
+                {
+                  "id": 4,
+                  "name": "Chocolate Chip Waffle",
+                  "price": 6.99
+                }
+              ]

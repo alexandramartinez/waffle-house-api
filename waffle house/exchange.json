@@ -1,0 +1,11 @@
+{
+    "main": "waffle-house.raml",
+    "name": "waffle house",
+    "classifier": "raml",
+    "tags": [],
+    "groupId": "fd0b2def-cc3b-41ad-aa15-3c92f8e9d64a",
+    "assetId": "waffle-house",
+    "version": "1.0.0-SNAPSHOT",
+    "apiVersion": "v1",
+    "dependencies": []
+}
